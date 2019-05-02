@@ -1,0 +1,41 @@
+{
+    "repositories": [
+        {
+            "url": "https://d1erq3dexipllg.cloudfront.net",
+            "type": "composer"
+        },
+        {
+            "type": "composer",
+            "url": "https://packages.zendframework.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "CG\\": "library/CG/",
+            "CG\\Controllers\\": "controllers/"
+        }
+    },
+    "require": {
+        "channelgrabber/constants": "dev-master",
+        "channelgrabber/di": "^2.3",
+        "channelgrabber/http": "^1.3",
+        "channelgrabber/log": "^2.3",
+        "channelgrabber/middleware": "^1.1",
+        "channelgrabber/slim": "^1.15",
+        "channelgrabber/stdlib": "^2.16",
+        "channelgrabber/user": "^1.26",
+        "guzzlehttp/guzzle": "^5.3.1",
+        "php": ">=7.1",
+        "slim/slim": "~2.6.3",
+        "zendframework/zend-config": "~2.3.0",
+        "zendframework/zend-di": "~2.3.0",
+        "zendframework/zend-servicemanager": "~2.3.0"
+    },
+    "scripts": {
+        "post-install-cmd": "@setup",
+        "post-update-cmd": "@setup",
+        "setup": [
+            "@composer -o dump-autoload"
+        ]
+    }
+}
