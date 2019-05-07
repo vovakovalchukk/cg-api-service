@@ -30,7 +30,7 @@ use CG\Usage\StorageInterface as UsageStorageInterface;
 use CG\Zend\Stdlib\Cache\EventManager;
 use Zend\Db\Sql\Sql;
 
-return [
+$config = [
     'di' => [
         'instance' => [
             'aliases' => [
@@ -126,3 +126,10 @@ return [
         ]
     ]
 ];
+
+$configFiles = glob(__DIR__ . '/global/*.php');
+foreach ($configFiles as $configFile) {
+    $configFileContents = require_once $configFile;
+    $config = \Zend\Stdlib\ArrayUtils::merge($config, $configFileContents);
+}
+return $config;
