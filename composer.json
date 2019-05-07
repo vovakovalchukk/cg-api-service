@@ -24,12 +24,17 @@
         "channelgrabber/slim": "^1.15",
         "channelgrabber/stdlib": "^2.16",
         "channelgrabber/user": "^1.26",
+        "channelgrabber/webhook-server": "dev-TAC-405-webhooks as 1.0.0",
         "guzzlehttp/guzzle": "^5.3.1",
         "php": ">=7.1",
         "slim/slim": "~2.6.3",
-        "zendframework/zend-config": "~2.3.0",
-        "zendframework/zend-di": "~2.3.0",
-        "zendframework/zend-servicemanager": "~2.3.0"
+        "zendframework/zend-config": "2.4.0",
+        "zendframework/zend-db": "2.4.0",
+        "zendframework/zend-di": "2.4.0",
+        "zendframework/zend-eventmanager": "2.4.0",
+        "zendframework/zend-inputfilter": "2.4.0",
+        "zendframework/zend-servicemanager": "2.4.0",
+        "zendframework/zend-validator": "2.4.0"
     },
     "scripts": {
         "post-install-cmd": "@setup",
