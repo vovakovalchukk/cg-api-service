@@ -65,19 +65,19 @@ return [
             'serviceClass' => RestService::class
         ]
     ],
-    "/feed/:id/message" => [
+    "/feed/:feedId/message" => [
         "validation" => [
             "flatten" => false,
             "dataRules" => ValidationMessageEntity::class,
             "filterRules" => ValidationMessageFilter::class,
         ],
-        "controllers" => function() use ($di, $app) {
+        "controllers" => function($feedId) use ($di, $app) {
             $method = $app->request()->getMethod();
 
             $controller = $di->get(MessageCollectionController::class);
             $app->view()->set(
                 'RestResponse',
-                $controller->$method($app->request()->getBody())
+                $controller->$method($feedId, $app->request()->getBody())
             );
         },
         "via" => [
@@ -87,19 +87,19 @@ return [
         "name" => "FeedMessageCollection",
         "version" => new Version(1, 1)
     ],
-    "/feed/:id/message/:messageId" => [
+    "/feed/:feedId/message/:messageId" => [
         "validation" => [
             "flatten" => false,
             "dataRules" => ValidationMessageEntity::class,
             "filterRules" => null
         ],
-        "controllers" => function($id) use ($di, $app) {
+        "controllers" => function($feedId, $messageId) use ($di, $app) {
             $method = $app->request()->getMethod();
 
             $controller = $di->get(MessageController::class);
             $app->view()->set(
                 'RestResponse',
-                $controller->$method($id, $app->request()->getBody())
+                $controller->$method($feedId, $messageId, $app->request()->getBody())
             );
         },
         "via" => [
