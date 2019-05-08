@@ -2,7 +2,9 @@
 namespace CG\InputValidation\Feed;
 
 use CG\Feed\Entity as Feed;
+use CG\InputValidation\Feed\Message\Entity as FeedMessageRules;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Validation\Rules\ArrayOfEntitiesValidator;
 use CG\Validation\Rules\BooleanValidator;
 use CG\Validation\Rules\IntegerValidator;
 use CG\Validation\Rules\ValidatorTrait;
@@ -16,9 +18,13 @@ class Entity implements RulesInterface
 {
     use ValidatorTrait;
 
-    public function __construct(Di $di)
+    /** @var FeedMessageRules */
+    protected $feedMessageRules;
+
+    public function __construct(Di $di, FeedMessageRules $feedMessageRules)
     {
         $this->di = $di;
+        $this->feedMessageRules = $feedMessageRules;
     }
 
     public function getRules()
@@ -86,6 +92,11 @@ class Entity implements RulesInterface
                 'required' => false,
                 'validators' => [new IntegerValidator(['name' => 'failedMessageCount'])]
             ],
+            'messages' => [
+                'name' => 'messages',
+                'required' => false,
+                'validators' => [new ArrayOfEntitiesValidator($this->feedMessageRules, 'messages')]
+            ]
         ];
     }
 }
