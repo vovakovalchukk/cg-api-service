@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "17587e39c0061830fc23cc50ffa6efc9",
+    "content-hash": "3ba275b6454070e34a2baaff2ae54582",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2602,39 +2602,6 @@
                 }
             },
             "time": "2013-11-04T13:10:03+00:00"
-        },
-        {
-            "name": "channelgrabber/webhook-server",
-            "version": "dev-TAC-405-webhooks",
-            "source": {
-                "type": "git",
-                "url": "git@bitbucket.org:channelgrabber/cg-webhook-server.git",
-                "reference": "e6dc5df49bddabbd57fb35d681d47618ed243cad"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/webhook-server/channelgrabber-webhook-server-dev-TAC-405-webhooks-de7e41.zip",
-                "reference": "e6dc5df49bddabbd57fb35d681d47618ed243cad"
-            },
-            "require": {
-                "channelgrabber/stdlib": "^2.16.7",
-                "php": ">=7.1"
-            },
-            "require-dev": {
-                "phpunit/phpunit": "~6.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "CG\\WebhookServer\\": "src/"
-                }
-            },
-            "autoload-dev": {
-                "psr-4": {
-                    "CG\\WebhookServer\\Test\\": "tests/src/"
-                }
-            },
-            "time": "2019-05-01T08:59:56+00:00"
         },
         {
             "name": "channelgrabber/zf2-email-template",
@@ -7925,18 +7892,10 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-TAC-405-webhooks",
-            "package": "channelgrabber/webhook-server"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
-        "channelgrabber/webhook-server": 20
+        "channelgrabber/constants": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
