@@ -78,10 +78,10 @@ class RestService extends Service
 
     protected function setTotalMessageCountOnHal(Hal $hal): Hal
     {
+        $data = $hal->getData();
         if (isset($data['totalMessageCount'])) {
             return $hal;
         }
-        $data = $hal->getData();
         $messagesData = $data['messages'] ?? [];
         $data['totalMessageCount'] = count($messagesData);
         $hal->setData($data);
