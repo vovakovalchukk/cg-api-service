@@ -1,9 +1,9 @@
 <?php
 
-use CG\Controllers\Feed\Feed\Collection as FeedCollectionController;
-use CG\Controllers\Feed\Feed as FeedController;
+use CG\Controllers\Feed\Collection as FeedCollectionController;
+use CG\Controllers\Feed\Entity as FeedEntityController;
 use CG\Controllers\Feed\Message\Collection as MessageCollectionController;
-use CG\Controllers\Feed\Message as MessageController;
+use CG\Controllers\Feed\Entity as MessageEntityController;
 use CG\Feed\Entity as Feed;
 use CG\Feed\Mapper;
 use CG\Feed\Message\Entity as Message;
@@ -48,7 +48,7 @@ return [
         "controllers" => function($id) use ($di, $app) {
             $method = $app->request()->getMethod();
 
-            $controller = $di->get(FeedController::class);
+            $controller = $di->get(FeedEntityController::class);
             $app->view()->set(
                 'RestResponse',
                 $controller->$method($id, $app->request()->getBody())
@@ -96,7 +96,7 @@ return [
         "controllers" => function($feedId, $messageId) use ($di, $app) {
             $method = $app->request()->getMethod();
 
-            $controller = $di->get(MessageController::class);
+            $controller = $di->get(MessageEntityController::class);
             $app->view()->set(
                 'RestResponse',
                 $controller->$method($feedId, $messageId, $app->request()->getBody())
