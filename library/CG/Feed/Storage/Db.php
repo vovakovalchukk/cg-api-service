@@ -93,7 +93,11 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
     protected function getSelect()
     {
         return $this->getReadSql()->select(static::DB_TABLE_NAME)
-            ->join('feedMessage', 'feedMessage.feedId = feed.id', ['calculatedStatus' => new Expression($this->getCalculatedStatusSql())])
+            ->join('feedMessage', 'feedMessage.feedId = feed.id', [
+                'calculatedStatus' => new Expression($this->getCalculatedStatusSql()),
+                'successfulMessageCount' => new Expression($this->getSuccessfulMessageCountSql()),
+                'failedMessageCount' => new Expression($this->getFailedMessageCountSql()),
+            ])
             ->group('feed.id');
     }
 
@@ -107,6 +111,18 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
         $receivedCountSql = "SUM(IF(feedMessage.status = '{$received}', 1, 0))";
         $calculatedStatusSql = "IF({$processingCountSql} > 0, '{$processing}', IF({$receivedCountSql} > 0, '{$received}', '{$complete}'))";
         return "IF(feed.statusCalculated = true, {$calculatedStatusSql}, feed.status)";
+    }
+
+    protected function getSuccessfulMessageCountSql(): string
+    {
+        $successful = Message::STATUS_SUCCESSFUL;
+        return "SUM(IF(feedMessage.status = '{$successful}', 1, 0))";
+    }
+
+    protected function getFailedMessageCountSql(): string
+    {
+        $failed = Message::STATUS_FAILED;
+        return "SUM(IF(feedMessage.status = '{$failed}', 1, 0))";
     }
 
     protected function getInsert()
