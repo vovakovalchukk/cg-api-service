@@ -79,11 +79,11 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
     {
         $array = $entity->toArray();
         $calculatedFields = $this->calculatedFields;
-        if ($entity->isStatusCalculated()) {
-            $calculatedFields[] = 'status';
-        }
         foreach ($calculatedFields as $calculatedField) {
             unset($array[$calculatedField]);
+        }
+        if ($entity->isStatusCalculated()) {
+            $array['status'] = Entity::STATUS_CALCULATED;
         }
         return $array;
     }
