@@ -83,7 +83,7 @@ return [
         "via" => [
             'GET', 'OPTIONS'
         ],
-        'entityRoute' => '/feed/:id/message/:messageId',
+        'entityRoute' => '/feed/:feedId/message/:messageId',
         "name" => "FeedMessageCollection",
         "version" => new Version(1, 1)
     ],
@@ -105,7 +105,7 @@ return [
         "via" => [
             'GET', 'PUT', 'OPTIONS'
         ],
-        "name" => "FeedEntity",
+        "name" => "FeedMessageEntity",
         "version" => new Version(1, 1),
         'eTag' => [
             'mapperClass' => MessageMapper::class,
