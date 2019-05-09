@@ -4,7 +4,9 @@ namespace CG\Feed\Message\Storage;
 use CG\Feed\Message\Collection;
 use CG\Feed\Message\Entity;
 use CG\Feed\Message\Filter;
+use CG\Feed\Message\IdParts;
 use CG\Feed\Message\StorageInterface;
+use CG\Stdlib\Exception\Runtime\NotFound;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Storage\Collection\SaveInterface as SaveCollectionInterface;
 use CG\Stdlib\Storage\Db\DbAbstract;
@@ -55,6 +57,60 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
         }
 
         return $query;
+    }
+
+    public function fetch($id)
+    {
+        $idParts = IdParts::fromId($id);
+        return $this->fetchEntity(
+            $this->getReadSql(),
+            $this->getSelect()->where([
+                'feedId' => $idParts->getFeedId(),
+                'index' => $idParts->getIndex()
+            ]),
+            $this->getMapper()
+        );
+    }
+
+    protected function saveEntity($entity)
+    {
+        try {
+            $this->fetch($entity->getId());
+            $this->updateEntity($entity);
+        } catch (NotFound $e) {
+            $this->insertEntity($entity);
+        }
+        return $entity;
+    }
+
+    protected function insertEntity($entity)
+    {
+        $insert = $this->getInsert()->values($this->getEntityArray($entity));
+        $this->getWriteSql()->prepareStatementForSqlObject($insert)->execute();
+        $entity->setNewlyInserted(true);
+    }
+
+    protected function updateEntity($entity)
+    {
+        $update = $this->getUpdate()->set($this->getEntityArray($entity))
+            ->where(['feedId' => $entity->getFeedId(), 'index' => $entity->getIndex()]);
+        $this->getWriteSql()->prepareStatementForSqlObject($update)->execute();
+    }
+
+    public function remove($entity)
+    {
+        $delete = $this->getDelete()->where(array(
+            'feedId' => $entity->getFeedId(),
+            'index' => $entity->getIndex()
+        ));
+        $this->getWriteSql()->prepareStatementForSqlObject($delete)->execute();
+    }
+
+    protected function getEntityArray($entity)
+    {
+        $array = $entity->toArray();
+        unset($array['id']);
+        return $array;
     }
 
     protected function getSelect()
