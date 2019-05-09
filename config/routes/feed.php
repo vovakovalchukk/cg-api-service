@@ -3,7 +3,7 @@
 use CG\Controllers\Feed\Collection as FeedCollectionController;
 use CG\Controllers\Feed\Entity as FeedEntityController;
 use CG\Controllers\Feed\Message\Collection as MessageCollectionController;
-use CG\Controllers\Feed\Entity as MessageEntityController;
+use CG\Controllers\Feed\Message\Entity as MessageEntityController;
 use CG\Feed\Entity as Feed;
 use CG\Feed\Mapper;
 use CG\Feed\Message\Entity as Message;

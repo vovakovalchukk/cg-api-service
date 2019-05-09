@@ -27,6 +27,9 @@ class RestService extends Service
 
     protected function getUrlFromFilter(Filter $filter): string
     {
-        return str_replace('{feedId}', $filter->getFeedId(), static::URL);
+        if (empty($filter->getFeedId())) {
+            throw new \InvalidArgumentException('Feed Message endpoint requires a Feed ID');
+        }
+        return str_replace('{feedId}', $filter->getFeedId()[0], static::URL);
     }
 }

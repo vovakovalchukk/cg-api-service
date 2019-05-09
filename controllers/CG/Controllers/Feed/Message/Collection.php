@@ -36,7 +36,7 @@ class Collection
             new Filter(
                 $this->getParams('limit') ?? null,
                 $this->getParams('page') ?? null,
-                $feedId,
+                [$feedId],
                 $this->getParams('index') ?? [],
                 $this->getParams('type') ?? [],
                 $this->getParams('status') ?? []
