@@ -3,6 +3,7 @@ namespace CG\Feed;
 
 use CG\Feed\Message\Filter as MessageFilter;
 use CG\Feed\Message\Service as MessageService;
+use DateTime;
 use Nocarrier\Hal;
 
 class RestService extends Service
@@ -22,11 +23,23 @@ class RestService extends Service
     public function fetchAsHal($id)
     {
         $entity = $this->fetch($id);
+        $this->persistStatusIfComplete($entity);
         //Converting to Collection removes need for duplicate code throughout the codebase
         $collection = new Collection(Entity::class, __FUNCTION__, ['id' => [$id]]);
         $collection->attach($entity);
         $this->fetchCollectionEmbeds($collection);
         return $this->getMapper()->toHal($entity);
+    }
+
+    protected function persistStatusIfComplete(Entity $entity): Entity
+    {
+        if (!$entity->isStatusCalculated() || $entity->getStatus() !== Entity::STATUS_COMPLETE) {
+            return $entity;
+        }
+        $entity->setStatusCalculated(false)
+            ->setCompletedDate(new DateTime());
+        $this->save($entity);
+        return $entity;
     }
 
     public function fetchCollectionByFilterAsHal(Filter $filter): Hal
@@ -39,8 +52,17 @@ class RestService extends Service
         }
 
         $collection = $this->getRepository()->fetchCollectionByFilter($filter);
+        $collection = $this->persistStatusesIfComplete($collection);
         $collection = $this->fetchCollectionEmbeds($collection, $filter);
         return $this->getMapper()->collectionToHal($collection, '/feed', $filter->getLimit(), $filter->getPage());
+    }
+
+    protected function persistStatusesIfComplete(Collection $collection): Collection
+    {
+        foreach ($collection as $entity) {
+            $this->persistStatusIfComplete($entity);
+        }
+        return $collection;
     }
 
     protected function fetchCollectionEmbeds(Collection $collection, Filter $filter = null): Collection
