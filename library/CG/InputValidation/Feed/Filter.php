@@ -84,7 +84,7 @@ class Filter implements RulesInterface
             ],
             'statusCalculated' => [
                 'name' => 'status',
-                'required' => true,
+                'required' => false,
                 'validators' => [new BooleanValidator(['name' => 'statusCalculated'])]
             ],
         ];

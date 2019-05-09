@@ -59,7 +59,7 @@ class Entity implements RulesInterface
             ],
             'createdDate' => [
                 'name'       => 'createdDate',
-                'required'   => true,
+                'required'   => false,
                 'validators' => [new Date(['format' => StdlibDateTime::FORMAT])]
             ],
             'completedDate' => [
@@ -69,12 +69,12 @@ class Entity implements RulesInterface
             ],
             'status' => [
                 'name' => 'status',
-                'required' => true,
+                'required' => false,
                 'validators' => [(new InArray())->setHaystack(Feed::getAllStatuses())]
             ],
             'statusCalculated' => [
                 'name' => 'status',
-                'required' => true,
+                'required' => false,
                 'validators' => [new BooleanValidator(['name' => 'statusCalculated'])]
             ],
             'totalMessageCount' => [

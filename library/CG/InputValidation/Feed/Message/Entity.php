@@ -70,7 +70,7 @@ class Entity implements RulesInterface
             ],
             'status' => [
                 'name' => 'status',
-                'required' => true,
+                'required' => false,
                 'validators' => [(new InArray())->setHaystack(Message::getAllStatuses())]
             ],
             'errorMessage' => [

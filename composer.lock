@@ -900,12 +900,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feed.git",
-                "reference": "74ba0e4c9c6efc032c992bb80c88ee783b59aa35"
+                "reference": "c868c45a863961402a662200a0fe9f6ee06e46a1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-1-feed-endpoint-026831.zip",
-                "reference": "74ba0e4c9c6efc032c992bb80c88ee783b59aa35"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-1-feed-endpoint-cf5abc.zip",
+                "reference": "c868c45a863961402a662200a0fe9f6ee06e46a1"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
@@ -931,7 +931,7 @@
                     "CG\\Feed\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-05-08T15:46:36+00:00"
+            "time": "2019-05-09T08:24:22+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
