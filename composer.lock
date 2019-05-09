@@ -900,7 +900,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feed.git",
-                "reference": "7ed907de261d099d5fd6c402e94ee967a9b24e54"
+                "reference": "1a4ed1189c6632f8b6bb3beae7bdf08144399a5a"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",

@@ -4,11 +4,13 @@ namespace CG\Feed\Storage;
 use CG\Feed\Collection;
 use CG\Feed\Entity;
 use CG\Feed\Filter;
+use CG\Feed\Message\Entity as Message;
 use CG\Feed\StorageInterface;
 use CG\Stdlib\Exception\Storage as StorageException;
 use CG\Stdlib\Storage\Collection\SaveInterface as SaveCollectionInterface;
 use CG\Stdlib\Storage\Db\DbAbstract;
 use Zend\Db\Sql\Exception\ExceptionInterface;
+use Zend\Db\Sql\Expression;
 use Zend\Db\Sql\Predicate\Operator;
 
 class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
@@ -90,7 +92,21 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
 
     protected function getSelect()
     {
-        return $this->getReadSql()->select(static::DB_TABLE_NAME);
+        return $this->getReadSql()->select(static::DB_TABLE_NAME)
+            ->join('feedMessage', 'feedMessage.feedId = feed.id', ['calculatedStatus' => new Expression($this->getCalculatedStatusSql())])
+            ->group('feed.id');
+    }
+
+    protected function getCalculatedStatusSql(): string
+    {
+        $processing = Message::STATUS_PROCESSING;
+        $received = Message::STATUS_RECEIVED;
+        $complete = Entity::STATUS_COMPLETE;
+
+        $processingCountSql = "SUM(IF(feedMessage.status = '{$processing}', 1, 0))";
+        $receivedCountSql = "SUM(IF(feedMessage.status = '{$received}', 1, 0))";
+        $calculatedStatusSql = "IF({$processingCountSql} > 0, '{$processing}', IF({$receivedCountSql} > 0, '{$received}', '{$complete}'))";
+        return "IF(feed.statusCalculated = true, {$calculatedStatusSql}, feed.status)";
     }
 
     protected function getInsert()
