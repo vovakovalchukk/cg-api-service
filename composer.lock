@@ -900,12 +900,7 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feed.git",
-                "reference": "e2e550b64a74ecd8f9c9b4dff25789c46d702f27"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-1-feed-endpoint-5d316f.zip",
-                "reference": "e2e550b64a74ecd8f9c9b4dff25789c46d702f27"
+                "reference": "7ed907de261d099d5fd6c402e94ee967a9b24e54"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
