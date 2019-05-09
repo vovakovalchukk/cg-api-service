@@ -15,6 +15,8 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
 {
     const DB_TABLE_NAME = 'feed';
 
+    protected $calculatedFields = ['successfulMessageCount', 'failedMessageCount'];
+
     public function fetchCollectionByFilter(Filter $filter)
     {
         try {
@@ -71,6 +73,19 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
         }
 
         return $query;
+    }
+
+    protected function getEntityArray($entity)
+    {
+        $array = $entity->toArray();
+        $calculatedFields = $this->calculatedFields;
+        if ($entity->isStatusCalculated()) {
+            $calculatedFields[] = 'status';
+        }
+        foreach ($calculatedFields as $calculatedField) {
+            unset($array[$calculatedField]);
+        }
+        return $array;
     }
 
     protected function getSelect()
