@@ -99,4 +99,12 @@ class RestService extends Service
             $this->messageService->saveHal($messageHal, []);
         }
     }
+
+    public function remove(Entity $entity)
+    {
+        foreach ($entity->getMessages() as $message) {
+            $this->messageService->remove($message);
+        }
+        return parent::remove($entity);
+    }
 }
