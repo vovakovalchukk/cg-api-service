@@ -6,6 +6,7 @@ use CG\Feed\Message\RestService;
 use CG\Slim\Controller\Entity\GetTrait;
 use CG\Slim\Controller\Entity\PutTrait;
 use CG\Slim\ControllerTrait;
+use Nocarrier\Hal;
 use Slim\Slim;
 use Zend\Di\Di;
 
@@ -32,9 +33,9 @@ class Entity
         return $this->traitGet($idParts->toId());
     }
 
-    public function put($feedId, $index)
+    public function put($feedId, $index, Hal $hal)
     {
         $idParts = IdParts::fromArray(['feedId' => $feedId, 'index' => $index]);
-        return $this->traitPut($idParts->toId());
+        return $this->traitPut($idParts->toId(), $hal);
     }
 }
