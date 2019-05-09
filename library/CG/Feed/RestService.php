@@ -3,7 +3,7 @@ namespace CG\Feed;
 
 use CG\Feed\Message\Filter as MessageFilter;
 use CG\Feed\Message\Service as MessageService;
-use CG\Slim\Renderer\ResponseType\Hal;
+use Nocarrier\Hal;
 
 class RestService extends Service
 {
@@ -65,13 +65,37 @@ class RestService extends Service
 
     public function saveHal(Hal $hal, array $ids)
     {
+        $this->setTotalMessageCountOnHal($hal);
         $halEntity = parent::saveHal($hal, $ids);
-        $resources = $hal->getResources();
+        $entity = $this->mapper->fromHal($halEntity);
+        $this->saveMessagesFromHal($hal, $entity);
+        // Re-fetch so any new Messages are embedded
+        return $this->fetchAsHal($entity->getId());
+    }
+
+    protected function setTotalMessageCountOnHal(Hal $hal): Hal
+    {
         $data = $hal->getData();
-        $messages = $resources['messages'] ?? $data['messages'] ?? [];
-        foreach ($messages as $message) {
-            $this->messageService->saveHal($message, ['id' => $message['id'] ?? null]);
+        $messagesData = $data['messages'] ?? [];
+        if (!isset($data['totalMessageCount'])) {
+            $data['totalMessageCount'] = count($messagesData);
+            $hal->setData($data);
         }
-        return $halEntity;
+        return $hal;
+    }
+
+    protected function saveMessagesFromHal(Hal $hal, Entity $entity): void
+    {
+        $data = $hal->getData();
+        $messagesData = $data['messages'] ?? [];
+        $index = 1;
+        foreach ($messagesData as $messageData) {
+            $messageData['feedId'] = $entity->getId();
+            $messageData['organisationUnitId'] = $entity->getOrganisationUnitId();
+            $messageData['index'] = $index++;
+
+            $messageHal = new Hal(null, $messageData);
+            $this->messageService->saveHal($messageHal, []);
+        }
     }
 }
