@@ -12,6 +12,15 @@ class RestService extends Service
     const DEFAULT_PAGE = 1;
     const URL = '/feed/{feedId}/message';
 
+    public function fetch($id, $feedId = null)
+    {
+        if ($feedId) {
+            $idParts = IdParts::fromArray(['feedId' => $feedId, 'index' => $id]);
+            $id = $idParts->toId();
+        }
+        return parent::fetch($id);
+    }
+
     public function fetchCollectionByFilterAsHal(Filter $filter): Hal
     {
         if (!$filter->getPage()) {
