@@ -22,7 +22,10 @@ class RestService extends Service
     public function fetchAsHal($id)
     {
         $entity = $this->fetch($id);
-        $this->fetchEntityEmbeds($entity);
+        //Converting to Collection removes need for duplicate code throughout the codebase
+        $collection = new Collection(Entity::class, __FUNCTION__, ['id' => [$id]]);
+        $collection->attach($entity);
+        $this->fetchCollectionEmbeds($collection);
         return $this->getMapper()->toHal($entity);
     }
 
@@ -38,15 +41,6 @@ class RestService extends Service
         $collection = $this->getRepository()->fetchCollectionByFilter($filter);
         $collection = $this->fetchCollectionEmbeds($collection);
         return $this->getMapper()->collectionToHal($collection, '/feed', $filter->getLimit(), $filter->getPage());
-    }
-
-    protected function fetchEntityEmbeds(Entity $entity): Entity
-    {
-        //Converting to Collection removes need for duplicate code throughout the codebase
-        $collection = new Collection(Entity::class, __FUNCTION__, ['id' => [$entity->getId()]]);
-        $collection->attach($entity);
-        $this->fetchCollectionEmbeds($collection);
-        return $entity;
     }
 
     protected function fetchCollectionEmbeds(Collection $collection): Collection
@@ -75,8 +69,8 @@ class RestService extends Service
         $halEntity = parent::saveHal($hal, $ids);
         $entity = $this->mapper->fromHal($halEntity);
         $this->saveMessagesFromHal($hal, $entity);
-        $this->fetchEntityEmbeds($entity);
-        return $this->getMapper()->toHal($entity);
+        // Re-fetch so any new Messages are embedded and calculated fields are calculated
+        return $this->fetchAsHal($entity->getId());
     }
 
     protected function setTotalMessageCountOnHal(Hal $hal): Hal
