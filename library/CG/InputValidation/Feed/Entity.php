@@ -78,6 +78,7 @@ class Entity implements RulesInterface, RequestMethodAwareInterface
             'statusCalculated' => [
                 'name' => 'status',
                 'required' => $this->requiredAfterPost(),
+                'allow_empty' => true,
                 'validators' => [new BooleanValidator(['name' => 'statusCalculated'])]
             ],
             'totalMessageCount' => [
