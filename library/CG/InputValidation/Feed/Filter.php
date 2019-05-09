@@ -85,7 +85,14 @@ class Filter implements RulesInterface
             'statusCalculated' => [
                 'name' => 'status',
                 'required' => false,
+                'allow_empty' => true,
                 'validators' => [new BooleanValidator(['name' => 'statusCalculated'])]
+            ],
+            'embedMessages' => [
+                'name' => 'embedMessages',
+                'required' => false,
+                'allow_empty' => true,
+                'validators' => [new BooleanValidator(['name' => 'embedMessages'])]
             ],
         ];
 

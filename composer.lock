@@ -900,7 +900,12 @@
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feed.git",
-                "reference": "1a4ed1189c6632f8b6bb3beae7bdf08144399a5a"
+                "reference": "f41fff29f8cecd4c68ff773595250a4e5ae120eb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-1-feed-endpoint-eb5871.zip",
+                "reference": "f41fff29f8cecd4c68ff773595250a4e5ae120eb"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
@@ -926,7 +931,7 @@
                     "CG\\Feed\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-05-09T10:38:47+00:00"
+            "time": "2019-05-09T14:47:45+00:00"
         },
         {
             "name": "channelgrabber/file-storage",

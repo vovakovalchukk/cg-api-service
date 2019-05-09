@@ -39,7 +39,8 @@ class Collection
                 $this->getParams('completedDateFrom') ?? null,
                 $this->getParams('completedDateTo') ?? null,
                 $this->getParams('status') ?? [],
-                $this->getParams('statusCalculated') ?? null
+                $this->getParams('statusCalculated') ?? null,
+                $this->getParams('embedMessages') ? filter_var($this->getParams('embedMessages'), FILTER_VALIDATE_BOOLEAN) : null
             )
         );
     }

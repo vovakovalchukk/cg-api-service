@@ -39,12 +39,15 @@ class RestService extends Service
         }
 
         $collection = $this->getRepository()->fetchCollectionByFilter($filter);
-        $collection = $this->fetchCollectionEmbeds($collection);
+        $collection = $this->fetchCollectionEmbeds($collection, $filter);
         return $this->getMapper()->collectionToHal($collection, '/feed', $filter->getLimit(), $filter->getPage());
     }
 
-    protected function fetchCollectionEmbeds(Collection $collection): Collection
+    protected function fetchCollectionEmbeds(Collection $collection, Filter $filter = null): Collection
     {
+        if ($filter && !$filter->isEmbedMessages()) {
+            return $collection;
+        }
         try {
             $filter = new MessageFilter();
             $filter->setLimit('all')
