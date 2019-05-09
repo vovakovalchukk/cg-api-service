@@ -2,6 +2,7 @@
 namespace CG\InputValidation\Feed\Message;
 
 use CG\Feed\Message\Entity as Message;
+use CG\Validation\RequestMethodAwareInterface;
 use CG\Validation\Rules\IntegerValidator;
 use CG\Validation\Rules\ValidatorTrait;
 use CG\Validation\RulesInterface;
@@ -10,9 +11,12 @@ use Zend\Validator\GreaterThan;
 use Zend\Validator\InArray;
 use Zend\Validator\StringLength;
 
-class Entity implements RulesInterface
+class Entity implements RulesInterface, RequestMethodAwareInterface
 {
     use ValidatorTrait;
+
+    /** @var string */
+    protected $requestMethod;
 
     public function __construct(Di $di)
     {
@@ -33,7 +37,7 @@ class Entity implements RulesInterface
             ],
             'organisationUnitId' => [
                 'name' => 'organisationUnitId',
-                'required' => true,
+                'required' => $this->requiredAfterPost(),
                 'validators' => [
                     new IntegerValidator(['name' => 'organisationUnitId']),
                     (new GreaterThan(['min' => 1, 'inclusive' => true]))
@@ -42,7 +46,7 @@ class Entity implements RulesInterface
             ],
             'feedId' => [
                 'name' => 'feedId',
-                'required' => true,
+                'required' => $this->requiredAfterPost(),
                 'validators' => [
                     new IntegerValidator(['name' => 'feedId']),
                     (new GreaterThan(['min' => 1, 'inclusive' => true]))
@@ -51,7 +55,7 @@ class Entity implements RulesInterface
             ],
             'index' => [
                 'name' => 'index',
-                'required' => true,
+                'required' => $this->requiredAfterPost(),
                 'validators' => [
                     new IntegerValidator(['name' => 'index']),
                     (new GreaterThan(['min' => 1, 'inclusive' => true]))
@@ -79,5 +83,15 @@ class Entity implements RulesInterface
                 'validators' => [new StringLength(['min' => 1])]
             ],
         ];
+    }
+
+    protected function requiredAfterPost(): bool
+    {
+        return ($this->requestMethod != 'POST');
+    }
+
+    public function setRequestMethod($requestMethod)
+    {
+        $this->requestMethod = $requestMethod;
     }
 }

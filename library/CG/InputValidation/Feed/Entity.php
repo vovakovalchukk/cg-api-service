@@ -4,6 +4,7 @@ namespace CG\InputValidation\Feed;
 use CG\Feed\Entity as Feed;
 use CG\InputValidation\Feed\Message\Entity as FeedMessageRules;
 use CG\Stdlib\DateTime as StdlibDateTime;
+use CG\Validation\RequestMethodAwareInterface;
 use CG\Validation\Rules\ArrayOfEntitiesValidator;
 use CG\Validation\Rules\BooleanValidator;
 use CG\Validation\Rules\IntegerValidator;
@@ -14,12 +15,14 @@ use Zend\Validator\Date;
 use Zend\Validator\GreaterThan;
 use Zend\Validator\InArray;
 
-class Entity implements RulesInterface
+class Entity implements RulesInterface, RequestMethodAwareInterface
 {
     use ValidatorTrait;
 
     /** @var FeedMessageRules */
     protected $feedMessageRules;
+    /** @var string */
+    protected $requestMethod;
 
     public function __construct(Di $di, FeedMessageRules $feedMessageRules)
     {
@@ -59,7 +62,7 @@ class Entity implements RulesInterface
             ],
             'createdDate' => [
                 'name'       => 'createdDate',
-                'required'   => false,
+                'required'   => $this->requiredAfterPost(),
                 'validators' => [new Date(['format' => StdlibDateTime::FORMAT])]
             ],
             'completedDate' => [
@@ -69,17 +72,17 @@ class Entity implements RulesInterface
             ],
             'status' => [
                 'name' => 'status',
-                'required' => false,
+                'required' => $this->requiredAfterPost(),
                 'validators' => [(new InArray())->setHaystack(Feed::getAllStatuses())]
             ],
             'statusCalculated' => [
                 'name' => 'status',
-                'required' => false,
+                'required' => $this->requiredAfterPost(),
                 'validators' => [new BooleanValidator(['name' => 'statusCalculated'])]
             ],
             'totalMessageCount' => [
                 'name' => 'totalMessageCount',
-                'required' => true,
+                'required' => $this->requiredAfterPost(),
                 'validators' => [new IntegerValidator(['name' => 'totalMessageCount'])]
             ],
             'successfulMessageCount' => [
@@ -94,9 +97,25 @@ class Entity implements RulesInterface
             ],
             'messages' => [
                 'name' => 'messages',
-                'required' => false,
+                'required' => $this->requiredForPost(),
                 'validators' => [new ArrayOfEntitiesValidator($this->feedMessageRules, 'messages')]
             ]
         ];
+    }
+
+    protected function requiredForPost(): bool
+    {
+        return ($this->requestMethod == 'POST');
+    }
+
+    protected function requiredAfterPost(): bool
+    {
+        return ($this->requestMethod != 'POST');
+    }
+
+    public function setRequestMethod($requestMethod)
+    {
+        $this->requestMethod = $requestMethod;
+        $this->feedMessageRules->setRequestMethod($requestMethod);
     }
 }
