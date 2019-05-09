@@ -34,12 +34,12 @@ class Collection
                 $this->getParams('id') ?? [],
                 $this->getParams('organisationUnitId') ?? [],
                 $this->getParams('partnerId') ?? [],
-                $this->getParams('createdDateFrom') ?? [],
-                $this->getParams('createdDateTo') ?? [],
-                $this->getParams('completedDateFrom') ?? [],
-                $this->getParams('completedDateTo') ?? [],
+                $this->getParams('createdDateFrom') ?? null,
+                $this->getParams('createdDateTo') ?? null,
+                $this->getParams('completedDateFrom') ?? null,
+                $this->getParams('completedDateTo') ?? null,
                 $this->getParams('status') ?? [],
-                $this->getParams('statusCalculated') ?? []
+                $this->getParams('statusCalculated') ?? null
             )
         );
     }
