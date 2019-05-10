@@ -29,11 +29,7 @@ class Entity implements RulesInterface, RequestMethodAwareInterface
             'id' => [
                 'name' => 'id',
                 'required' => false,
-                'validators' => [
-                    new IntegerValidator(['name' => 'id']),
-                    (new GreaterThan(['min' => 1, 'inclusive' => true]))
-                        ->setMessages(['notGreaterThanInclusive' => 'id must be at least %min%'])
-                ]
+                'validators' => [new StringLength(['min' => 1])]
             ],
             'organisationUnitId' => [
                 'name' => 'organisationUnitId',
