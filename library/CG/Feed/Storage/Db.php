@@ -47,13 +47,13 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
         $query = [];
 
         if (!empty($filter->getId())) {
-            $query['id'] = $filter->getId();
+            $query['feed.id'] = $filter->getId();
         }
         if (!empty($filter->getOrganisationUnitId())) {
-            $query['organisationUnitId'] = $filter->getOrganisationUnitId();
+            $query['feed.organisationUnitId'] = $filter->getOrganisationUnitId();
         }
         if (!empty($filter->getPartnerId())) {
-            $query['partnerId'] = $filter->getPartnerId();
+            $query['feed.partnerId'] = $filter->getPartnerId();
         }
         if (!empty($filter->getCreatedDateFrom())) {
             $query[] = new Operator('feed.createdDate', Operator::OP_GTE, $filter->getCreatedDateFrom());
@@ -68,10 +68,10 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
             $query[] = new Operator('feed.completedDate', Operator::OP_LTE, $filter->getCompletedDateTo());
         }
         if (!empty($filter->getStatus())) {
-            $query['status'] = $filter->getStatus();
+            $query['feed.status'] = $filter->getStatus();
         }
         if ($filter->getStatusCalculated() !== null) {
-            $query['statusCalculated'] = $filter->getStatusCalculated();
+            $query['feed.statusCalculated'] = $filter->getStatusCalculated();
         }
 
         return $query;
