@@ -2,6 +2,7 @@
 $routes = array();
 $files = [
     'root.php',
+    'webhook.php',
     'feed.php',
 ];
 foreach ($files as $file) {

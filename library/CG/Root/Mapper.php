@@ -16,6 +16,7 @@ class Mapper
     public function getHal()
     {
         return $this->di->newInstance(Hal::class, ['uri' => '/'])
+            ->addLink('webhook', '/webhook')
             ->addLink('feed', '/feed');
     }
 }
