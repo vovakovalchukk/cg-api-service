@@ -44,6 +44,13 @@ class Filter implements RulesInterface
                     new IsArrayValidator(['name' => 'status', 'haystack' => Message::getAllStatuses()])
                 ]
             ],
+            'organisationUnitId' => [
+                'name' => 'organisationUnitId',
+                'required' => false,
+                'validators' => [
+                    new ArrayOfIntegersValidator(new IntegerValidator(), 'organisationUnitId')
+                ]
+            ],
         ];
 
         return array_merge($this->getPaginationValidation(), $rules);
