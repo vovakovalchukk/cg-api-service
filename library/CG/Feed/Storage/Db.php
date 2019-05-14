@@ -24,6 +24,9 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
         try {
             $query = $this->buildFilterQuery($filter);
             $select = $this->getSelect()->where($query);
+            if (!empty($filter->getStatus())) {
+                $select->having(['calculatedStatus' => $filter->getStatus()]);
+            }
 
             if ($filter->getLimit() != 'all') {
                 $offset = ($filter->getPage() - 1) * $filter->getLimit();
@@ -66,9 +69,6 @@ class Db extends DbAbstract implements StorageInterface, SaveCollectionInterface
         }
         if (!empty($filter->getCompletedDateTo())) {
             $query[] = new Operator('feed.completedDate', Operator::OP_LTE, $filter->getCompletedDateTo());
-        }
-        if (!empty($filter->getStatus())) {
-            $query['feed.status'] = $filter->getStatus();
         }
         if ($filter->getStatusCalculated() !== null) {
             $query['feed.statusCalculated'] = $filter->getStatusCalculated();
