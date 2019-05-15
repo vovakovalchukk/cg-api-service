@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1cad783ec3dcabe476e6892ec9394a7",
+    "content-hash": "e02003e3197e10132f53dd5234f8b234",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -896,16 +896,16 @@
         },
         {
             "name": "channelgrabber/feed",
-            "version": "dev-PTNR-1-feed-endpoint",
+            "version": "dev-PTNR-13-process-feeds",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feed.git",
-                "reference": "84df5835dd9c0ba1e69551292730575dd47e4014"
+                "reference": "c32f3646988fd0595b283c84e15ed8561b2b42e7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-1-feed-endpoint-340ee1.zip",
-                "reference": "84df5835dd9c0ba1e69551292730575dd47e4014"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-13-process-feeds-9c30d4.zip",
+                "reference": "c32f3646988fd0595b283c84e15ed8561b2b42e7"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
@@ -931,7 +931,7 @@
                     "CG\\Feed\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-05-14T12:48:19+00:00"
+            "time": "2019-05-15T10:05:08+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -7972,9 +7972,9 @@
     "packages-dev": [],
     "aliases": [
         {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-PTNR-1-feed-endpoint",
+            "alias": "1.0.1",
+            "alias_normalized": "1.0.1.0",
+            "version": "dev-PTNR-13-process-feeds",
             "package": "channelgrabber/feed"
         }
     ],

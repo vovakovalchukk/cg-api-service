@@ -1,9 +1,12 @@
 <?php
 namespace CG\Feed;
 
+use CG\Feed\Gearman\Workload\ProcessFeed as ProcessFeedWorkload;
+use CG\Feed\Message\Entity as Message;
 use CG\Feed\Message\Filter as MessageFilter;
 use CG\Feed\Message\Service as MessageService;
 use DateTime;
+use GearmanClient;
 use Nocarrier\Hal;
 
 class RestService extends Service
@@ -13,11 +16,18 @@ class RestService extends Service
 
     /** @var MessageService */
     protected $messageService;
+    /** @var GearmanClient */
+    protected $gearmanClient;
 
-    public function __construct(StorageInterface $repository, Mapper $mapper, MessageService $messageService)
-    {
+    public function __construct(
+        StorageInterface $repository,
+        Mapper $mapper,
+        MessageService $messageService,
+        GearmanClient $gearmanClient
+    ) {
         parent::__construct($repository, $mapper);
         $this->messageService = $messageService;
+        $this->gearmanClient = $gearmanClient;
     }
 
     public function fetchAsHal($id)
@@ -95,7 +105,9 @@ class RestService extends Service
         $entity = $this->mapper->fromHal($halEntity);
         $this->saveMessagesFromHal($hal, $entity);
         // Re-fetch so any new Messages are embedded and calculated fields are calculated
-        return $this->fetchAsHal($entity->getId());
+        $fetchedHal = $this->fetchAsHal($entity->getId());
+        $this->createJobToProcess($this->mapper->fromHal($fetchedHal));
+        return $fetchedHal;
     }
 
     protected function setTotalMessageCountOnHal(Hal $hal): Hal
@@ -123,6 +135,16 @@ class RestService extends Service
             $messageHal = new Hal(null, $messageData);
             $this->messageService->saveHal($messageHal, []);
         }
+    }
+
+    protected function createJobToProcess(Entity $entity): void
+    {
+        if ($entity->getStatus() != Message::STATUS_RECEIVED) {
+            return;
+        }
+        $workload = new ProcessFeedWorkload($entity->getId());
+        $unique = ProcessFeedWorkload::FUNCTION_NAME . '-' . $entity->getId();
+        $this->gearmanClient->doBackground(ProcessFeedWorkload::FUNCTION_NAME, serialize($workload), $unique);
     }
 
     public function remove(Entity $entity)
