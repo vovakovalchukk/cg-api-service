@@ -56,7 +56,13 @@ return [
                     'relationships' => [
                         Feed::class => [
                             ['entityClass' => Message::class]
-                        ]
+                        ],
+                        Message::class => [
+                            [
+                                'entityClass' => Feed::class,
+                                'type' => InvalidationHandler::RELATION_TYPE_PARENT_ENTITY
+                            ]
+                        ],
                     ]
                 ]
             ]
