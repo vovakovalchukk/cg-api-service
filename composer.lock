@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "c1cad783ec3dcabe476e6892ec9394a7",
+    "content-hash": "81a658d5d345737914c0a6a43391d61c",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -896,7 +896,7 @@
         },
         {
             "name": "channelgrabber/feed",
-            "version": "dev-PTNR-1-feed-endpoint",
+            "version": "dev-PTNR-35-feeds-qa",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feed.git",
@@ -904,7 +904,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-1-feed-endpoint-340ee1.zip",
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-35-feeds-qa-340ee1.zip",
                 "reference": "84df5835dd9c0ba1e69551292730575dd47e4014"
             },
             "require": {
@@ -7974,7 +7974,7 @@
         {
             "alias": "1.0.0",
             "alias_normalized": "1.0.0.0",
-            "version": "dev-PTNR-1-feed-endpoint",
+            "version": "dev-PTNR-35-feeds-qa",
             "package": "channelgrabber/feed"
         }
     ],
