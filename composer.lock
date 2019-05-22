@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "81a658d5d345737914c0a6a43391d61c",
+    "content-hash": "ffa9639f3e2e2d8359af1ac3751965d6",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -896,16 +896,16 @@
         },
         {
             "name": "channelgrabber/feed",
-            "version": "dev-PTNR-35-feeds-qa",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cg-feed.git",
-                "reference": "37d3f5ac326d0a84d7645beb44b052af61315975"
+                "reference": "0e610e46697b6fd1b74ae6d175d2066d1f642af6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-dev-PTNR-35-feeds-qa-0f8f9c.zip",
-                "reference": "37d3f5ac326d0a84d7645beb44b052af61315975"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/feed/channelgrabber-feed-1.0.0-05b300.zip",
+                "reference": "0e610e46697b6fd1b74ae6d175d2066d1f642af6"
             },
             "require": {
                 "channelgrabber/cache": "^2.6.2",
@@ -932,7 +932,7 @@
                     "CG\\Feed\\Test\\": "tests/src/"
                 }
             },
-            "time": "2019-05-17T11:25:28+00:00"
+            "time": "2019-05-22T13:18:02+00:00"
         },
         {
             "name": "channelgrabber/file-storage",
@@ -7972,18 +7972,10 @@
         }
     ],
     "packages-dev": [],
-    "aliases": [
-        {
-            "alias": "1.0.0",
-            "alias_normalized": "1.0.0.0",
-            "version": "dev-PTNR-35-feeds-qa",
-            "package": "channelgrabber/feed"
-        }
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "channelgrabber/constants": 20,
-        "channelgrabber/feed": 20
+        "channelgrabber/constants": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,
