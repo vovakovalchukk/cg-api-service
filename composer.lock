@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffa9639f3e2e2d8359af1ac3751965d6",
+    "content-hash": "c359f005362723bdd1be247e574af252",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -2183,16 +2183,16 @@
         },
         {
             "name": "channelgrabber/stdlib",
-            "version": "2.16.7",
+            "version": "2.16.13",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgstdlib.git",
-                "reference": "b9a5be011bc5b964b994bf87c476d9bb9281f243"
+                "reference": "1a59dd1c0c7a187f955e191ede3bcb319aa67caf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.7-4e639b.zip",
-                "reference": "b9a5be011bc5b964b994bf87c476d9bb9281f243"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/stdlib/channelgrabber-stdlib-2.16.13-ee5069.zip",
+                "reference": "1a59dd1c0c7a187f955e191ede3bcb319aa67caf"
             },
             "require": {
                 "php": ">=7.1",
@@ -2226,7 +2226,8 @@
                 "files": [
                     "src/Utilities.php",
                     "src/polyfill_70.php",
-                    "src/polyfill_71.php"
+                    "src/polyfill_71.php",
+                    "src/polyfill_73.php"
                 ]
             },
             "autoload-dev": {
@@ -2235,7 +2236,7 @@
                     "CG\\Stdlib\\TestAsset\\": "tests/assets"
                 }
             },
-            "time": "2019-02-13T12:22:45+00:00"
+            "time": "2020-01-31T08:55:40+00:00"
         },
         {
             "name": "channelgrabber/stock",
@@ -2788,20 +2789,20 @@
         },
         {
             "name": "channelgrabber/zf2-stdlib",
-            "version": "1.3.1",
+            "version": "1.3.2.1",
             "source": {
                 "type": "git",
                 "url": "git@bitbucket.org:channelgrabber/cgzf2stdlib.git",
-                "reference": "cba55f6a7adb65f316235e74b7bc959716f4385a"
+                "reference": "1d117356618eb6b37148f937a0c1a950693e4924"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-stdlib/channelgrabber-zf2-stdlib-1.3.1-853d26.zip",
-                "reference": "cba55f6a7adb65f316235e74b7bc959716f4385a"
+                "url": "https://d1erq3dexipllg.cloudfront.net/dist/channelgrabber/zf2-stdlib/channelgrabber-zf2-stdlib-1.3.2.1-14341f.zip",
+                "reference": "1d117356618eb6b37148f937a0c1a950693e4924"
             },
             "require": {
                 "channelgrabber/cache": "^2.0.1",
-                "channelgrabber/stdlib": "^2.15.0",
+                "channelgrabber/stdlib": "^2.16.12",
                 "php": ">=7.1",
                 "zendframework/zend-cache": "^2.2",
                 "zendframework/zend-db": "^2.2",
@@ -2827,7 +2828,7 @@
                     "CG\\Zend\\Stdlib\\Test\\": "tests"
                 }
             },
-            "time": "2018-07-24T14:08:44+00:00"
+            "time": "2020-01-28T15:37:26+00:00"
         },
         {
             "name": "channelgrabber/zf2-v4-ui",
@@ -3733,6 +3734,7 @@
                 }
             ],
             "description": "Provides a simple API and specification that abstracts away the details of HTTP into a single PHP function.",
+            "abandoned": true,
             "time": "2018-07-31T13:22:33+00:00"
         },
         {
@@ -3783,6 +3785,7 @@
                 "Guzzle",
                 "stream"
             ],
+            "abandoned": true,
             "time": "2014-10-12T19:18:40+00:00"
         },
         {
