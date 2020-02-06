@@ -38,6 +38,9 @@
         "zendframework/zend-servicemanager": "2.4.0",
         "zendframework/zend-validator": "2.4.0"
     },
+    "require-dev": {
+        "phpstan/phpstan": "^0.12.9"
+    },
     "scripts": {
         "post-install-cmd": "@setup",
         "post-update-cmd": "@setup",
